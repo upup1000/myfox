@@ -14,7 +14,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		Collection<FtpProxyChannelConfig> ftpProxyServers = FtpProxyConfigLoad.readConfiguration();
-		NIOProcessGroup group=new NIOProcessGroup(1);
+		NIOProcessGroup group=new NIOProcessGroup(Runtime.getRuntime().availableProcessors());
 		group.start();
 		for (FtpProxyChannelConfig config : ftpProxyServers) {
 			FTPProxyServer chan=new FTPProxyServer(group,config);
