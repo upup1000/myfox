@@ -8,9 +8,11 @@ import java.nio.channels.ServerSocketChannel;
 import com.myfox.config.FtpProxyChannelConfig;
 import com.myfox.nioprocess.NIOProcessGroup;
 import com.myfox.nioprocess.NIOProcessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FTPProxyServer {
-
+	private static Logger LOGGER = LoggerFactory.getLogger(FTPProxyServer.class);
 	protected NIOProcessGroup group;
 	protected ServerSocketChannel serverChannel = null;
 	protected SelectionKey selectKey;
@@ -29,7 +31,7 @@ public class FTPProxyServer {
 		serverChannel.configureBlocking(false);
 		selectKey = process.register(serverChannel, SelectionKey.OP_ACCEPT);
 		selectKey.attach(new FTPServerSocketHandler(group, config));
-		System.out.println("ftpProxy listen on "+config.getServerPort());
+		LOGGER.debug("ftpProxy listen on "+config.getServerPort());
 	}
 
 	public ServerSocketChannel getChannel() {

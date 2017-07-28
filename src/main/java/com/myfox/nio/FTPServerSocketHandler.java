@@ -5,11 +5,15 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.myfox.config.FtpProxyChannelConfig;
 import com.myfox.nioprocess.NIOProcessGroup;
 import com.myfox.nioprocess.NIOProcessor;
 
 public class FTPServerSocketHandler implements NioServerHandler {
+	private static Logger LOGGER = LoggerFactory.getLogger(FTPServerSocketHandler.class);
 	private NIOProcessGroup group;
 	private FtpProxyChannelConfig config;
 
@@ -27,6 +31,7 @@ public class FTPServerSocketHandler implements NioServerHandler {
 		SelectionKey socketKey = process.register(socketChannel, SelectionKey.OP_READ);
 		FTPCmdNIOEventHandlerC2P c2p = new FTPCmdNIOEventHandlerC2P(socketChannel, socketKey, config, process);
 		socketKey.attach(c2p);
+		LOGGER.debug("client connection from:{}",socketChannel.getRemoteAddress());
 	}
 
 }

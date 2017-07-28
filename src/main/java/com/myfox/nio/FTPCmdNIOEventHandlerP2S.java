@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.myfox.ftpcmd.FTPCMDProxyHandler;
 import com.myfox.ftpcmd.S2PFTPCMDEnum;
 
@@ -13,6 +16,7 @@ import com.myfox.ftpcmd.S2PFTPCMDEnum;
  * @author zss
  */
 public class FTPCmdNIOEventHandlerP2S extends AbstractFTPCommandNIOHandler {
+	private static Logger LOGGER = LoggerFactory.getLogger(FTPCmdNIOEventHandlerP2S.class);
 	public static final int ST_INIT = 0;
 	public static final int ST_AUTHING = 1;
 	protected int status = ST_INIT;
@@ -29,12 +33,12 @@ public class FTPCmdNIOEventHandlerP2S extends AbstractFTPCommandNIOHandler {
 		}
 		key.interestOps(SelectionKey.OP_READ);
 		this.answerSocket("USER " + this.ftpSession.getUname() + CRLF);
+		LOGGER.debug("P->S:{}", "USER " + this.ftpSession.getUname() + CRLF);
 		status = ST_AUTHING;
 	}
 
 	@Override
 	public void handFtpCmd(String fromServer) throws IOException {
-		System.out.println("S->P:" + fromServer);
 		if (status == ST_INIT) {
 			this.answerSocket("USER " + this.ftpSession.getUname() + CRLF);
 			status = ST_AUTHING;
@@ -45,15 +49,17 @@ public class FTPCmdNIOEventHandlerP2S extends AbstractFTPCommandNIOHandler {
 		try {
 			response = Integer.parseInt(res);
 		} catch (NumberFormatException e) {
+			LOGGER.debug("S->C:{}", fromServer);
 			ftpSession.getC2pHandler().answerSocket(fromServer + CRLF);
 			return;
 		}
 		FTPCMDProxyHandler handler = S2PFTPCMDEnum.getCmdHandler(response + "");
 		if (handler != null) {
 			handler.exec(ftpSession, fromServer);
+			LOGGER.debug("S->P:{}", fromServer);
 		} else {
-			// proxy to client
 			ftpSession.getC2pHandler().answerSocket(fromServer + CRLF);
+			LOGGER.debug("S->C:{}", fromServer);
 		}
 	}
 }

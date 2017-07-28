@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.myfox.config.FtpProxyChannelConfig;
 import com.myfox.config.MsgText;
 import com.myfox.ftpcmd.C2PFTPCMDEnum;
@@ -16,6 +19,7 @@ import com.myfox.nioprocess.NIOProcessor;
  * @author zss
  */
 public class FTPCmdNIOEventHandlerC2P extends AbstractFTPCommandNIOHandler {
+	private static Logger LOGGER = LoggerFactory.getLogger(FTPCmdNIOEventHandlerC2P.class);
 	/**
 	 * @param channel
 	 * @param selectKey
@@ -45,11 +49,14 @@ public class FTPCmdNIOEventHandlerC2P extends AbstractFTPCommandNIOHandler {
 			FTPCMDProxyHandler ftpCmd = C2PFTPCMDEnum.getCmdHandler(key);
 			if (ftpCmd != null) {
 				ftpCmd.exec(ftpSession, cmd);
+				LOGGER.debug("C->P:{}",cmd);
 			} else {
 				ftpSession.getP2sHandler().answerSocket(cmd + CRLF);
+				LOGGER.debug("C->S:{}",cmd);
 			}
 		} else {
 			ftpSession.getP2sHandler().answerSocket(cmd + CRLF);
+			LOGGER.debug("C->S:{}",cmd);
 		}
 	}
 

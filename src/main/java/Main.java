@@ -12,7 +12,6 @@ import com.myfox.nioprocess.NIOProcessGroup;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		
 		Collection<FtpProxyChannelConfig> ftpProxyServers = FtpProxyConfigLoad.readConfiguration();
 		NIOProcessGroup group=new NIOProcessGroup(Runtime.getRuntime().availableProcessors());
 		group.start();
