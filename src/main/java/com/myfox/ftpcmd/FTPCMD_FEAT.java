@@ -7,7 +7,7 @@ import com.myfox.nio.FTPSession;
 /**
  * @author zss
  */
-public class FTPCMD_FEAT extends FTPCMDLoggedInPorxyHandler {
+public class FTPCMD_FEAT extends FTPCMDLoggedPorxyHandler {
 	String resp = "211-no-features" + FtpProxyChannelConfig.CRLF + "211 End" + FtpProxyChannelConfig.CRLF;
 
 	@Override

@@ -9,7 +9,7 @@ import com.myfox.nio.FTPSession;
  * 登录的后的命令 实现 次抽象类
  * @author zss
  */
-public abstract class FTPCMDLoggedInPorxyHandler implements FTPCMDProxyHandler {
+public abstract class FTPCMDLoggedPorxyHandler implements FTPCMDProxyHandler {
 
 	@Override
 	public void exec(FTPSession session, String cmd) throws IOException {

@@ -7,7 +7,7 @@ import com.myfox.nio.FTPSession;
 /**
  * @author zss
  */
-public class FTPCMD_EPRT extends FTPCMDLoggedInPorxyHandler {
+public class FTPCMD_EPRT extends FTPCMDLoggedPorxyHandler {
 	String resp = "500 not supported command EPRT" + FtpProxyChannelConfig.CRLF;
 
 	@Override
