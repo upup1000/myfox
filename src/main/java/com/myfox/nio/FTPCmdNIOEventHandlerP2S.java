@@ -53,11 +53,11 @@ public class FTPCmdNIOEventHandlerP2S extends AbstractFTPCommandNIOHandler {
 		}
 		FTPCMDProxyHandler handler = S2PFTPCMDEnum.getCmdHandler(response + "");
 		if (handler != null) {
-			handler.exec(ftpSession, fromServer);
 			LOGGER.debug("S->P:{}", fromServer);
+			handler.exec(ftpSession, fromServer);
 		} else {
-			ftpSession.getC2pHandler().answerSocket(fromServer + CRLF);
 			LOGGER.debug("S->C:{}", fromServer);
+			ftpSession.getC2pHandler().answerSocket(fromServer + CRLF);
 		}
 	}
 }

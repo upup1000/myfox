@@ -12,5 +12,6 @@ public class MsgText {
 	public static String msgCannotAllocateLocalPort = "425 Cannot allocate local port...";
 	public static String msgPortSuccess = "200 PORT command successful.";
 	public static String msgPortFailed = "425 PORT command failed. Try PASV instead.";
+	public static String msgPassiveMode="227 Entering Passive Mode ({0},{1},{2})"; 
 	
 }

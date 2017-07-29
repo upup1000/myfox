@@ -30,7 +30,7 @@ public class FTPProxyServer {
 		serverChannel.socket().bind(isa);
 		serverChannel.configureBlocking(false);
 		selectKey = process.register(serverChannel, SelectionKey.OP_ACCEPT);
-		selectKey.attach(new FTPServerSocketHandler(group, config));
+		selectKey.attach(new FTPCmdAcceptHandler(group, config));
 		LOGGER.debug("ftpProxy listen on "+config.getServerPort());
 	}
 

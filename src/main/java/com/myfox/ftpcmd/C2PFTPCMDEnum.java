@@ -8,7 +8,8 @@ public enum C2PFTPCMDEnum {
 	C_P_FEAT("FEAT", new FTPCMD_FEAT()),
 	C_P_EPRT("EPRT", new FTPCMD_EPRT()),
 	C_P_EPSV("EPSV", new FTPCMD_EPSV()),
-	C_P_PASV("PASV", new FTPCMD_PASV());
+	C_P_PASV("PASV", new FTPCMD_PASV()),
+	;
 	String key;
 	public FTPCMDProxyHandler cmd;
 

@@ -6,7 +6,9 @@ package com.myfox.ftpcmd;
  */
 public enum S2PFTPCMDEnum {
 	S_P230("230", new FTPCMD_230()),
-	S_P220("220", new FTPCMD_220());
+	S_P220("220", new FTPCMD_220()),
+	S_P227("227", new FTPCMD_227()),
+	;
 	String key;
 	public FTPCMDProxyHandler cmd;
 	S2PFTPCMDEnum(String key, FTPCMDProxyHandler cmd) {

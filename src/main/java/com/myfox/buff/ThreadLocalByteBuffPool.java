@@ -8,4 +8,10 @@ public class ThreadLocalByteBuffPool {
 			return new DirectByteBuffPool(512, 2048, (short) 10);
 		}
 	};
+	
+	public static ThreadLocal<DirectByteBuffPool> bigDatabyteBuffPool = new ThreadLocal<DirectByteBuffPool>() {
+		public DirectByteBuffPool initialValue() {
+			return new DirectByteBuffPool(2048,2048*2, (short) 10);
+		}
+	};
 }

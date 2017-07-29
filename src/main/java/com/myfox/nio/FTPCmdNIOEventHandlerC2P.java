@@ -34,6 +34,8 @@ public class FTPCmdNIOEventHandlerC2P extends AbstractFTPCommandNIOHandler {
 		ftpSession.setServerIp(config.getRemortAddress());
 		ftpSession.setServerPort(config.getRemortPort());
 		ftpSession.setProcess(process);
+		FTPDataTransNIOHandler dataTransHandler = new FTPDataTransNIOHandler(ftpSession);
+		ftpSession.setDataChannelHandler(dataTransHandler);
 		try {
 			this.answerSocket(MsgText.msgConnect + FtpProxyChannelConfig.CRLF);
 		} catch (IOException e) {
@@ -44,29 +46,39 @@ public class FTPCmdNIOEventHandlerC2P extends AbstractFTPCommandNIOHandler {
 	@Override
 	public void handFtpCmd(String cmd) throws IOException {
 		int i = cmd.indexOf(' ');
+		String key = cmd;
 		if (i != -1) {
-			String key = cmd.substring(0, i);
-			FTPCMDProxyHandler ftpCmd = C2PFTPCMDEnum.getCmdHandler(key);
-			if (ftpCmd != null) {
-				ftpCmd.exec(ftpSession, cmd);
-				LOGGER.debug("C->P:{}", cmd);
-			} else {
-				rorwardCmd(cmd);
-			}
+			key = cmd.substring(0, i);
+		}
+		FTPCMDProxyHandler ftpCmd = C2PFTPCMDEnum.getCmdHandler(key);
+		if (ftpCmd != null) {
+			LOGGER.debug("C->P:{}", cmd);
+			ftpCmd.exec(ftpSession, cmd);
 		} else {
 			rorwardCmd(cmd);
 		}
 	}
 
 	private void rorwardCmd(String cmd) throws IOException {
-		ftpSession.getP2sHandler().answerSocket(cmd + CRLF);
 		LOGGER.debug("C->S:{}", cmd);
+		ftpSession.getP2sHandler().answerSocket(cmd + CRLF);
 	}
 
 	public void close() {
 		super.close();
+		LOGGER.debug("关闭C->P 命令连接");
 		if (ftpSession.getP2sHandler() != null) {
 			ftpSession.getP2sHandler().close();
+			LOGGER.debug("关闭P->S 命令连接");
+		}
+		if(ftpSession.getDataChannelHandler()!=null)
+		{
+			ftpSession.getDataChannelHandler().close();
+		}
+		
+		if(ftpSession.getDataAcceptHandler()!=null)
+		{
+			ftpSession.getDataAcceptHandler().close();
 		}
 	}
 

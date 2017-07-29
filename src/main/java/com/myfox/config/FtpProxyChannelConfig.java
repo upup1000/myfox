@@ -26,7 +26,10 @@ public class FtpProxyChannelConfig {
 	 * 远程ftp服务器地址
 	 */
 	private String remortAddress;
-
+    /**
+     * 本地绑定的地址
+     */
+	private String bind_address="0.0.0.0";
 	public int getServerPort() {
 		return serverPort;
 	}
@@ -58,4 +61,13 @@ public class FtpProxyChannelConfig {
 	public void setFtpServerName(String ftpServerName) {
 		this.ftpServerName = ftpServerName;
 	}
+
+	public String getBind_address() {
+		return bind_address;
+	}
+
+	public void setBind_address(String bind_address) {
+		this.bind_address = bind_address;
+	}
+	
 }

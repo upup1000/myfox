@@ -1,13 +1,9 @@
 package com.myfox.nio;
 
-import java.io.IOException;
-import java.nio.channels.Channel;
-
 import com.myfox.nioprocess.NIOProcessor;
 
 /**
  * ftp session
- * 
  * @author zss
  */
 public class FTPSession {
@@ -19,7 +15,22 @@ public class FTPSession {
 	private NIOProcessor process;
 	private FTPCmdNIOEventHandlerC2P c2pHandler;
 	private FTPCmdNIOEventHandlerP2S p2sHandler;
-
+	/**
+	 *数据通道 监听handler
+	 */
+	private FTPDataAcceptHandler dataAcceptHandler;
+	/**
+	 * 监听的 端口
+	 */
+	private int dataAcceptPort;
+	/**
+	 *数据传输通道 
+	 */
+	private FTPDataTransNIOHandler dataChannelHandler;
+	/**
+	 * 是否是主动模式
+	 */
+    private boolean activeModel;
 	public String getServerIp() {
 		return serverIp;
 	}
@@ -84,4 +95,35 @@ public class FTPSession {
 		this.isLogin = isLogin;
 	}
 
+	public boolean isActiveModel() {
+		return activeModel;
+	}
+
+	public void setActiveModel(boolean activeModel) {
+		this.activeModel = activeModel;
+	}
+
+	public FTPDataAcceptHandler getDataAcceptHandler() {
+		return dataAcceptHandler;
+	}
+
+	public void setDataAcceptHandler(FTPDataAcceptHandler dataAcceptHandler) {
+		this.dataAcceptHandler = dataAcceptHandler;
+	}
+
+	public FTPDataTransNIOHandler getDataChannelHandler() {
+		return dataChannelHandler;
+	}
+
+	public void setDataChannelHandler(FTPDataTransNIOHandler dataChannelHandler) {
+		this.dataChannelHandler = dataChannelHandler;
+	}
+
+	public int getDataAcceptPort() {
+		return dataAcceptPort;
+	}
+
+	public void setDataAcceptPort(int dataAcceptPort) {
+		this.dataAcceptPort = dataAcceptPort;
+	}
 }

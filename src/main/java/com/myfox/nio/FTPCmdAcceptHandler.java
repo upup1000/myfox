@@ -11,13 +11,16 @@ import org.slf4j.LoggerFactory;
 import com.myfox.config.FtpProxyChannelConfig;
 import com.myfox.nioprocess.NIOProcessGroup;
 import com.myfox.nioprocess.NIOProcessor;
-
-public class FTPServerSocketHandler implements NioServerHandler {
-	private static Logger LOGGER = LoggerFactory.getLogger(FTPServerSocketHandler.class);
+/**
+ * 接收ftp命令通道 连接处理
+ * @author zss
+ */
+public class FTPCmdAcceptHandler implements NioServerHandler {
+	private static Logger LOGGER = LoggerFactory.getLogger(FTPCmdAcceptHandler.class);
 	private NIOProcessGroup group;
 	private FtpProxyChannelConfig config;
 
-	public FTPServerSocketHandler(NIOProcessGroup group, FtpProxyChannelConfig config) {
+	public FTPCmdAcceptHandler(NIOProcessGroup group, FtpProxyChannelConfig config) {
 		this.group = group;
 		this.config = config;
 	}

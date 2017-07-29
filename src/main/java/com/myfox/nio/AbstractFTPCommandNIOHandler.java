@@ -89,6 +89,14 @@ public abstract class AbstractFTPCommandNIOHandler implements NIOHandler {
 	public abstract void handFtpCmd(String cmd) throws IOException ;
 
 	public void close() {
+		if(channel!=null&&channel.isConnected())
+		{
+			try {
+				channel.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		selectKey.cancel();
 	}
 
