@@ -7,11 +7,11 @@ import com.myfox.nio.FTPSession;
 /**
  * @author zss
  */
-public class FTPCMD_FEAT implements FTPCMDProxyHandler {
+public class FTPCMD_FEAT extends FTPCMDLoggedInPorxyHandler {
 	String resp = "211-no-features" + FtpProxyChannelConfig.CRLF + "211 End" + FtpProxyChannelConfig.CRLF;
 
 	@Override
-	public void exec(FTPSession session, String cmd) throws IOException {
+	public void nextExec(FTPSession session, String cmd) throws IOException {
 		session.getC2pHandler().answerSocket(resp);
 	}
 }

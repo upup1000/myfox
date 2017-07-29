@@ -7,10 +7,10 @@ import com.myfox.nio.FTPSession;
 /**
  * @author zss
  */
-public class FTPCMD_EPSV implements FTPCMDProxyHandler{
+public class FTPCMD_EPSV extends FTPCMDLoggedInPorxyHandler {
 	String resp = "500 not supported command EPSV" + FtpProxyChannelConfig.CRLF;
 	@Override
-	public void exec(FTPSession session, String cmd) throws IOException {
+	public void nextExec(FTPSession session, String cmd) throws IOException {
 		session.getC2pHandler().answerSocket(resp);
 	}
 

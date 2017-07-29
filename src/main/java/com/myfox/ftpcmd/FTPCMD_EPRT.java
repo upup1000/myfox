@@ -7,12 +7,13 @@ import com.myfox.nio.FTPSession;
 /**
  * @author zss
  */
-public class FTPCMD_EPRT implements FTPCMDProxyHandler {
+public class FTPCMD_EPRT extends FTPCMDLoggedInPorxyHandler {
 	String resp = "500 not supported command EPRT" + FtpProxyChannelConfig.CRLF;
 
 	@Override
-	public void exec(FTPSession session, String cmd) throws IOException {
+	public void nextExec(FTPSession session, String cmd) throws IOException {
 		session.getC2pHandler().answerSocket(resp);
 	}
+
 
 }

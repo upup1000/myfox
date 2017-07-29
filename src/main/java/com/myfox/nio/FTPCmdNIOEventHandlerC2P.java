@@ -20,6 +20,7 @@ import com.myfox.nioprocess.NIOProcessor;
  */
 public class FTPCmdNIOEventHandlerC2P extends AbstractFTPCommandNIOHandler {
 	private static Logger LOGGER = LoggerFactory.getLogger(FTPCmdNIOEventHandlerC2P.class);
+
 	/**
 	 * @param channel
 	 * @param selectKey
@@ -42,28 +43,29 @@ public class FTPCmdNIOEventHandlerC2P extends AbstractFTPCommandNIOHandler {
 
 	@Override
 	public void handFtpCmd(String cmd) throws IOException {
-		System.out.println("C->P:" + cmd);
 		int i = cmd.indexOf(' ');
 		if (i != -1) {
 			String key = cmd.substring(0, i);
 			FTPCMDProxyHandler ftpCmd = C2PFTPCMDEnum.getCmdHandler(key);
 			if (ftpCmd != null) {
 				ftpCmd.exec(ftpSession, cmd);
-				LOGGER.debug("C->P:{}",cmd);
+				LOGGER.debug("C->P:{}", cmd);
 			} else {
-				ftpSession.getP2sHandler().answerSocket(cmd + CRLF);
-				LOGGER.debug("C->S:{}",cmd);
+				rorwardCmd(cmd);
 			}
 		} else {
-			ftpSession.getP2sHandler().answerSocket(cmd + CRLF);
-			LOGGER.debug("C->S:{}",cmd);
+			rorwardCmd(cmd);
 		}
+	}
+
+	private void rorwardCmd(String cmd) throws IOException {
+		ftpSession.getP2sHandler().answerSocket(cmd + CRLF);
+		LOGGER.debug("C->S:{}", cmd);
 	}
 
 	public void close() {
 		super.close();
-		if(ftpSession.getP2sHandler()!=null)
-		{
+		if (ftpSession.getP2sHandler() != null) {
 			ftpSession.getP2sHandler().close();
 		}
 	}

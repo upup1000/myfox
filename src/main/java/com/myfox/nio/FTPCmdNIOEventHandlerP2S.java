@@ -40,8 +40,6 @@ public class FTPCmdNIOEventHandlerP2S extends AbstractFTPCommandNIOHandler {
 	@Override
 	public void handFtpCmd(String fromServer) throws IOException {
 		if (status == ST_INIT) {
-			this.answerSocket("USER " + this.ftpSession.getUname() + CRLF);
-			status = ST_AUTHING;
 			return;
 		}
 		String res = fromServer.substring(0, 3);
