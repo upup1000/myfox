@@ -1,5 +1,8 @@
 package com.myfox.nio;
 
+import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
+
 import com.myfox.nioprocess.NIOProcessor;
 
 /**
@@ -19,14 +22,10 @@ public class FTPSession {
 	 *数据通道 监听handler
 	 */
 	private FTPDataAcceptHandler dataAcceptHandler;
-	/**
-	 * 监听的 端口
-	 */
-	private int dataAcceptPort;
-	/**
-	 *数据传输通道 
-	 */
-	private FTPDataTransNIOHandler dataChannelHandler;
+	public FTPDataTransNIOHandler proxyTransDataHandler;
+	public SocketChannel clientDataSocket;
+	public ServerSocketChannel clientDataServerSocket;
+	public SocketChannel serverDataSocket;
 	/**
 	 * 是否是主动模式
 	 */
@@ -111,19 +110,4 @@ public class FTPSession {
 		this.dataAcceptHandler = dataAcceptHandler;
 	}
 
-	public FTPDataTransNIOHandler getDataChannelHandler() {
-		return dataChannelHandler;
-	}
-
-	public void setDataChannelHandler(FTPDataTransNIOHandler dataChannelHandler) {
-		this.dataChannelHandler = dataChannelHandler;
-	}
-
-	public int getDataAcceptPort() {
-		return dataAcceptPort;
-	}
-
-	public void setDataAcceptPort(int dataAcceptPort) {
-		this.dataAcceptPort = dataAcceptPort;
-	}
 }

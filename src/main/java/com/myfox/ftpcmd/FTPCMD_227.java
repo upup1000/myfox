@@ -22,10 +22,10 @@ public class FTPCMD_227 extends FTPCMDLoggedPorxyHandler {
 		final SocketChannel remoteServerChannel = SocketChannel.open();
 		remoteServerChannel.configureBlocking(false);
 		remoteServerChannel.connect(serverAddress);
-		FTPDataTransNIOHandler hanlder = session.getDataChannelHandler();
-		hanlder.setServerChannel(remoteServerChannel);
+		session.serverDataSocket=remoteServerChannel;
+//		FTPDataTransNIOHandler hanlder = session.getDataChannelHandler();
 		SelectionKey key = session.getProcess().register(remoteServerChannel, SelectionKey.OP_CONNECT);
-		key.attach(hanlder);
+		key.attach(session.proxyTransDataHandler);
 		LOGGER.info("ftpProxy Connecting to  ftp server for data trans" + session.getServerIp() + ":" + serverDataPort);
 	}
 

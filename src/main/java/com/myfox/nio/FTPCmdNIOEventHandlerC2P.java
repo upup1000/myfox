@@ -35,7 +35,7 @@ public class FTPCmdNIOEventHandlerC2P extends AbstractFTPCommandNIOHandler {
 		ftpSession.setServerPort(config.getRemortPort());
 		ftpSession.setProcess(process);
 		FTPDataTransNIOHandler dataTransHandler = new FTPDataTransNIOHandler(ftpSession);
-		ftpSession.setDataChannelHandler(dataTransHandler);
+		ftpSession.proxyTransDataHandler=dataTransHandler;
 		try {
 			this.answerSocket(MsgText.msgConnect + FtpProxyChannelConfig.CRLF);
 		} catch (IOException e) {
@@ -71,14 +71,14 @@ public class FTPCmdNIOEventHandlerC2P extends AbstractFTPCommandNIOHandler {
 			ftpSession.getP2sHandler().close();
 			LOGGER.debug("关闭P->S 命令连接");
 		}
-		if(ftpSession.getDataChannelHandler()!=null)
+		if(ftpSession.serverDataSocket!=null&&ftpSession.serverDataSocket.isOpen())
 		{
-			ftpSession.getDataChannelHandler().close();
-		}
-		
-		if(ftpSession.getDataAcceptHandler()!=null)
-		{
-			ftpSession.getDataAcceptHandler().close();
+			try {
+				ftpSession.serverDataSocket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

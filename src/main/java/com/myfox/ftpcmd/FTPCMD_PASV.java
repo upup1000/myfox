@@ -19,26 +19,26 @@ public class FTPCMD_PASV extends FTPCMDLoggedPorxyHandler {
 	public void nextExec(FTPSession session, String cmd) throws IOException {
 		// 被动模式
 		session.setActiveModel(false);
-		int port;
-		if (session.getDataAcceptHandler() == null) {
-			ServerSocketChannel serverScoket = ServerSocketChannel.open();
-			// 随机一个本地端口
-			final InetSocketAddress isa2 = new InetSocketAddress("0.0.0.0", 0);
-			serverScoket.bind(isa2);
-			serverScoket.configureBlocking(false);
-			SelectionKey selectionKey = session.getProcess().register(serverScoket, SelectionKey.OP_ACCEPT);
-			FTPDataAcceptHandler handler = new FTPDataAcceptHandler(session, serverScoket, selectionKey);
-			selectionKey.attach(handler);
-			session.setDataAcceptHandler(handler);
-			port = ((InetSocketAddress) serverScoket.getLocalAddress()).getPort();
-			session.setDataAcceptPort(port);
-		} else {
-			port = session.getDataAcceptPort();
+		if(session.serverDataSocket!=null&&session.serverDataSocket.isOpen())
+		{
+			session.serverDataSocket.close();
+			LOGGER.debug("pasv 关闭之前的端口监听!!");
 		}
+		ServerSocketChannel serverScoket = ServerSocketChannel.open();
+		// 随机一个本地端口
+		final InetSocketAddress isa2 = new InetSocketAddress("0.0.0.0", 0);
+		serverScoket.bind(isa2);
+		serverScoket.configureBlocking(false);
+		SelectionKey selectionKey = session.getProcess().register(serverScoket, SelectionKey.OP_ACCEPT);
+		session.clientDataServerSocket = serverScoket;
+		FTPDataAcceptHandler handler = new FTPDataAcceptHandler(session);
+		selectionKey.attach(handler);
+		session.setDataAcceptHandler(handler);
+		// session.setDataAcceptPort(port);
 		// 通知后端Server进入PASV模式,命令成功后，再告知前端
 		session.getP2sHandler().answerSocket("PASV " + FtpProxyChannelConfig.CRLF);
-		LOGGER.debug("P->C :PASV ");
-		LOGGER.debug("ftp proxy data channel port:{}", port);
+		LOGGER.debug("P->S :PASV ");
+		 LOGGER.debug("ftp proxy data channel listener on port:{}", ((InetSocketAddress) serverScoket.getLocalAddress()).getPort());
 	}
 
 }

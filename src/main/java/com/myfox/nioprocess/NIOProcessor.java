@@ -2,6 +2,7 @@ package com.myfox.nioprocess;
 
 import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
 
 /**
  * 连接处理器
@@ -24,4 +25,6 @@ public interface NIOProcessor {
 	 * @param channel
 	 */
 	public SelectionKey register(SelectableChannel channel, int option);
+	
+	public Selector getSelector();
 }

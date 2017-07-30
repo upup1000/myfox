@@ -85,4 +85,9 @@ public class NIOProcessImpl extends Thread implements NIOProcessor {
 		System.err.println(Integer.toBinaryString(ops));
 	}
 
+	@Override
+	public Selector getSelector() {
+		return selector;
+	}
+
 }
