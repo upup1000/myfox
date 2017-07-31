@@ -17,7 +17,7 @@ public class FTPProxyServer {
 	protected ServerSocketChannel serverChannel = null;
 	protected SelectionKey selectKey;
 	protected FtpProxyChannelConfig config;
-
+    
 	public FTPProxyServer(NIOProcessGroup group, FtpProxyChannelConfig config) {
 		this.group = group;
 		this.config = config;

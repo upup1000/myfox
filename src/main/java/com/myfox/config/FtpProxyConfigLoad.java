@@ -19,7 +19,7 @@ public class FtpProxyConfigLoad {
 	private final static String LOCAL_PORT_PROPERTY = ".localPort";
 	private final static String REMOTE_PORT_PROPERTY = ".remotePort";
 	private final static String REMOTE_HOST_PROPERTY = ".remoteHost";
-
+	private final static String LOCAL_HOST_IP = ".localIp";
 	public static Collection<FtpProxyChannelConfig> readConfiguration() throws IOException {
 		final Collection<FtpProxyChannelConfig> proxyTaskSettingses = new ArrayList<FtpProxyChannelConfig>();
 		final Properties properties = loadProperties();
@@ -50,11 +50,15 @@ public class FtpProxyConfigLoad {
 		final String hostName = properties.getProperty(proxyName + REMOTE_HOST_PROPERTY);
 		final int localPort = Integer.parseInt(properties.getProperty(proxyName + LOCAL_PORT_PROPERTY));
 		final int remotePort = Integer.parseInt(properties.getProperty(proxyName + REMOTE_PORT_PROPERTY));
+		String bind_address=properties.getProperty(proxyName + LOCAL_HOST_IP);
+		bind_address=!bind_address.equals("0.0.0.0")?bind_address:"127.0.0.1";
+		bind_address =bind_address.replace('.', ',');
 		FtpProxyChannelConfig config = new FtpProxyChannelConfig();
 		config.setFtpServerName(proxyName);
 		config.setServerPort(localPort);
 		config.setRemortAddress(hostName);
 		config.setRemortPort(remotePort);
+		config.setBind_address(bind_address);
 		return config;
 	}
 	public static void main(String[] args) {

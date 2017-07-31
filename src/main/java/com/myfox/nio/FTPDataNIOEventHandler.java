@@ -6,6 +6,7 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
+import java.text.MessageFormat;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.myfox.buff.DirectByteBuffPool;
 import com.myfox.buff.ThreadLocalByteBuffPool;
+import com.myfox.config.MsgText;
 
 /**
  * ftpProxy 数据通道 数据传输 处理
@@ -41,8 +43,7 @@ public class FTPDataNIOEventHandler implements NIOEventHandler {
 		curChannel.register(session.getProcess().getSelector(), SelectionKey.OP_READ, this);
 		// 通知前端ＰＡＡＳＩＶＥ模式建立成功
 		int dataServerPort = ((InetSocketAddress) session.clientDataServerSocket.getLocalAddress()).getPort();
-		String toClient = "227 Entering Passive Mode (" + "127,0,0,1" + "," + (int) (dataServerPort / 256) + ","
-				+ (dataServerPort % 256) + ")";
+		String toClient=MessageFormat.format(MsgText.msgPassiveMode, session.getPublicIp(),(int) (dataServerPort / 256),(dataServerPort % 256));
 		session.getC2pHandler().answerSocket(toClient + CRLF);
 		LOGGER.info("P->C:" + toClient);
 		LOGGER.info("ftpProxy Connecting to  ftp server for data trans" + session.getServerIp() + "success!");

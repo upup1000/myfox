@@ -13,6 +13,7 @@ public class FTPSession {
 	private String uname;
 	private String serverIp;
 	private int serverPort;
+	private String publicIp;
 	private String clientIp;
 	private boolean isLogin;
 	private NIOProcessor process;
@@ -108,6 +109,14 @@ public class FTPSession {
 
 	public void setDataAcceptHandler(FTPDataAcceptHandler dataAcceptHandler) {
 		this.dataAcceptHandler = dataAcceptHandler;
+	}
+
+	public String getPublicIp() {
+		return publicIp;
+	}
+
+	public void setPublicIp(String publicIp) {
+		this.publicIp = publicIp;
 	}
 
 }

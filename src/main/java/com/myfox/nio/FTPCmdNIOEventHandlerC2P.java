@@ -26,7 +26,7 @@ public class FTPCmdNIOEventHandlerC2P extends AbsFTPCmdNIOEventHandler {
 	 * @param selectKey
 	 * @param config
 	 */
-	public FTPCmdNIOEventHandlerC2P(SocketChannel channel, SelectionKey selectKey, FtpProxyChannelConfig config,
+	public FTPCmdNIOEventHandlerC2P(String publicIp,SocketChannel channel, SelectionKey selectKey, FtpProxyChannelConfig config,
 			NIOProcessor process) {
 		super(channel, selectKey);
 		this.ftpSession = new FTPSession();
@@ -34,6 +34,7 @@ public class FTPCmdNIOEventHandlerC2P extends AbsFTPCmdNIOEventHandler {
 		ftpSession.setServerIp(config.getRemortAddress());
 		ftpSession.setServerPort(config.getRemortPort());
 		ftpSession.setProcess(process);
+		ftpSession.setPublicIp(publicIp);
 		FTPDataNIOEventHandler dataTransHandler = new FTPDataNIOEventHandler(ftpSession);
 		ftpSession.proxyTransDataHandler=dataTransHandler;
 		try {

@@ -32,7 +32,7 @@ public class FTPCmdAcceptHandler implements NIOAcceptHandler {
 		socketChannel.configureBlocking(false);
 		NIOProcessor process = group.next();
 		SelectionKey socketKey = process.register(socketChannel, SelectionKey.OP_READ);
-		FTPCmdNIOEventHandlerC2P c2p = new FTPCmdNIOEventHandlerC2P(socketChannel, socketKey, config, process);
+		FTPCmdNIOEventHandlerC2P c2p = new FTPCmdNIOEventHandlerC2P(config.getBind_address(),socketChannel, socketKey, config, process);
 		socketKey.attach(c2p);
 		LOGGER.debug("client connection from:{}",socketChannel.getRemoteAddress());
 	}
