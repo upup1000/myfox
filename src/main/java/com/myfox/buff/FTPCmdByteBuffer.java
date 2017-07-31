@@ -1,4 +1,4 @@
-package com.myfox.nio;
+package com.myfox.buff;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

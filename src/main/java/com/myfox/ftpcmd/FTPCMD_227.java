@@ -8,7 +8,7 @@ import java.nio.channels.SocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.myfox.nio.FTPDataTransNIOHandler;
+import com.myfox.nio.FTPDataNIOEventHandler;
 import com.myfox.nio.FTPSession;
 import com.myfox.util.FTPUtil;
 

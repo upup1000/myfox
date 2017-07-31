@@ -15,7 +15,7 @@ import com.myfox.nioprocess.NIOProcessor;
  * 
  * @author zss
  */
-public class FTPDataAcceptHandler implements NioServerHandler {
+public class FTPDataAcceptHandler implements NIOAcceptHandler {
 	private static Logger LOGGER = LoggerFactory.getLogger(FTPCmdAcceptHandler.class);
 	private FTPSession session;
 

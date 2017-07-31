@@ -3,7 +3,7 @@ package com.myfox.nio;
 import java.io.IOException;
 import java.nio.channels.SelectionKey;
 
-public interface NIOHandler {
+public interface NIOEventHandler {
 	public static String CRLF = "\r\n";
 	void onConnected(SelectionKey key) throws IOException;
 	void onRead(SelectionKey key) throws IOException;

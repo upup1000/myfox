@@ -8,12 +8,13 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.myfox.buff.DirectByteBuffPool;
+import com.myfox.buff.FTPCmdByteBuffer;
 import com.myfox.buff.ThreadLocalByteBuffPool;
 import com.myfox.config.FtpProxyChannelConfig;
 /**
  * @author zss
  */
-public abstract class AbstractFTPCommandNIOHandler implements NIOHandler {
+public abstract class AbsFTPCmdNIOEventHandler implements NIOEventHandler {
 	protected SocketChannel channel;
 	protected SelectionKey selectKey;
 	protected FTPSession ftpSession;
@@ -21,7 +22,7 @@ public abstract class AbstractFTPCommandNIOHandler implements NIOHandler {
 	protected ByteBuffer readBuff;
 	protected Queue<ByteBuffer> cmds = new ConcurrentLinkedQueue<ByteBuffer>();
 
-	public AbstractFTPCommandNIOHandler(SocketChannel channel, SelectionKey selectKey) {
+	public AbsFTPCmdNIOEventHandler(SocketChannel channel, SelectionKey selectKey) {
 		this.channel = channel;
 		this.selectKey = selectKey;
 		this.cmdByteBuff = new FTPCmdByteBuffer(FtpProxyChannelConfig.MAX_CMD_SIZE);

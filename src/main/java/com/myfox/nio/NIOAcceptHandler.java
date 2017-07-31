@@ -6,7 +6,7 @@ import java.nio.channels.SelectionKey;
 /**
  * @author zss
  */
-public interface NioServerHandler {
+public interface NIOAcceptHandler {
     /**
      * 新连接到来
      * @param key

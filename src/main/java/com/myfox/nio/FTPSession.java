@@ -22,7 +22,7 @@ public class FTPSession {
 	 *数据通道 监听handler
 	 */
 	private FTPDataAcceptHandler dataAcceptHandler;
-	public FTPDataTransNIOHandler proxyTransDataHandler;
+	public FTPDataNIOEventHandler proxyTransDataHandler;
 	public SocketChannel clientDataSocket;
 	public ServerSocketChannel clientDataServerSocket;
 	public SocketChannel serverDataSocket;

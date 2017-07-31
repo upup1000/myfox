@@ -8,8 +8,8 @@ import java.nio.channels.Selector;
 import java.nio.channels.spi.SelectorProvider;
 import java.util.Set;
 
-import com.myfox.nio.NIOHandler;
-import com.myfox.nio.NioServerHandler;
+import com.myfox.nio.NIOEventHandler;
+import com.myfox.nio.NIOAcceptHandler;
 /**
  * @author zss
  */
@@ -46,19 +46,19 @@ public class NIOProcessImpl extends Thread implements NIOProcessor {
 					}
 					int readyOps = k.readyOps();
 					if ((readyOps & SelectionKey.OP_CONNECT) != 0) {
-						NIOHandler channel = (NIOHandler) k.attachment();
+						NIOEventHandler channel = (NIOEventHandler) k.attachment();
 						channel.onConnected(k);
 					}
 					if ((readyOps & SelectionKey.OP_WRITE) != 0) {
-						NIOHandler channel = (NIOHandler) k.attachment();
+						NIOEventHandler channel = (NIOEventHandler) k.attachment();
 						channel.onWrite(k);
 					}
 					if ((readyOps & SelectionKey.OP_READ) != 0) {
-						NIOHandler channel = (NIOHandler) k.attachment();
+						NIOEventHandler channel = (NIOEventHandler) k.attachment();
 						channel.onRead(k);
 					}
 					if ((readyOps & SelectionKey.OP_ACCEPT) != 0) {
-						NioServerHandler channel = (NioServerHandler) k.attachment();
+						NIOAcceptHandler channel = (NIOAcceptHandler) k.attachment();
 						channel.onAccept(k);
 					}
 				}

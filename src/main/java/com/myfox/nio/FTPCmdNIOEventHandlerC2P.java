@@ -18,7 +18,7 @@ import com.myfox.nioprocess.NIOProcessor;
  * 
  * @author zss
  */
-public class FTPCmdNIOEventHandlerC2P extends AbstractFTPCommandNIOHandler {
+public class FTPCmdNIOEventHandlerC2P extends AbsFTPCmdNIOEventHandler {
 	private static Logger LOGGER = LoggerFactory.getLogger(FTPCmdNIOEventHandlerC2P.class);
 
 	/**
@@ -34,7 +34,7 @@ public class FTPCmdNIOEventHandlerC2P extends AbstractFTPCommandNIOHandler {
 		ftpSession.setServerIp(config.getRemortAddress());
 		ftpSession.setServerPort(config.getRemortPort());
 		ftpSession.setProcess(process);
-		FTPDataTransNIOHandler dataTransHandler = new FTPDataTransNIOHandler(ftpSession);
+		FTPDataNIOEventHandler dataTransHandler = new FTPDataNIOEventHandler(ftpSession);
 		ftpSession.proxyTransDataHandler=dataTransHandler;
 		try {
 			this.answerSocket(MsgText.msgConnect + FtpProxyChannelConfig.CRLF);

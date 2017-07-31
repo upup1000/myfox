@@ -20,13 +20,13 @@ import com.myfox.buff.ThreadLocalByteBuffPool;
  * 
  * @author zss
  */
-public class FTPDataTransNIOHandler implements NIOHandler {
-	private static Logger LOGGER = LoggerFactory.getLogger(FTPDataTransNIOHandler.class);
+public class FTPDataNIOEventHandler implements NIOEventHandler {
+	private static Logger LOGGER = LoggerFactory.getLogger(FTPDataNIOEventHandler.class);
 	protected Queue<ByteBuffer> clientWriteBuffer = new ConcurrentLinkedQueue<ByteBuffer>();
 	protected Queue<ByteBuffer> serverWriteBuffer = new ConcurrentLinkedQueue<ByteBuffer>();
 	private FTPSession session;
 
-	public FTPDataTransNIOHandler(FTPSession session) {
+	public FTPDataNIOEventHandler(FTPSession session) {
 		this.session = session;
 	}
 

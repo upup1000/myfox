@@ -1,4 +1,4 @@
-package com.myfox.util;
+package com.myfox.buff;
 
 
 import java.nio.ByteBuffer;

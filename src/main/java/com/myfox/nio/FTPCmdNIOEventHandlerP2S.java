@@ -15,7 +15,7 @@ import com.myfox.ftpcmd.S2PFTPCMDEnum;
  * 
  * @author zss
  */
-public class FTPCmdNIOEventHandlerP2S extends AbstractFTPCommandNIOHandler {
+public class FTPCmdNIOEventHandlerP2S extends AbsFTPCmdNIOEventHandler {
 	private static Logger LOGGER = LoggerFactory.getLogger(FTPCmdNIOEventHandlerP2S.class);
 	public static final int ST_INIT = 0;
 	public static final int ST_AUTHING = 1;

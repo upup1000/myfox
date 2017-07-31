@@ -15,7 +15,7 @@ import com.myfox.nioprocess.NIOProcessor;
  * 接收ftp命令通道 连接处理
  * @author zss
  */
-public class FTPCmdAcceptHandler implements NioServerHandler {
+public class FTPCmdAcceptHandler implements NIOAcceptHandler {
 	private static Logger LOGGER = LoggerFactory.getLogger(FTPCmdAcceptHandler.class);
 	private NIOProcessGroup group;
 	private FtpProxyChannelConfig config;
