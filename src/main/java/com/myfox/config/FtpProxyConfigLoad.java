@@ -3,11 +3,7 @@ package com.myfox.config;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 /**
  * ftp代理配置加载
@@ -32,7 +28,8 @@ public class FtpProxyConfigLoad {
 
 	private static Collection<String> collectProxyNames(final Properties prop) {
 		final Set<String> propertiesName = new HashSet<String>();
-		for (String name : prop.stringPropertyNames()) {
+		for (Iterator<String> it = prop.stringPropertyNames().iterator();it.hasNext();) {
+			String name = it.next();
 			propertiesName.add(name.substring(0, name.indexOf(".")));
 		}
 		return propertiesName;

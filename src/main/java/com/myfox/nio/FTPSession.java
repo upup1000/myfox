@@ -119,4 +119,7 @@ public class FTPSession {
 		this.publicIp = publicIp;
 	}
 
+	public void setProxyTransDataHandler(FTPDataNIOEventHandler proxyTransDataHandler) {
+		this.proxyTransDataHandler = proxyTransDataHandler;
+	}
 }
