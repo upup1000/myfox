@@ -18,6 +18,9 @@ import com.myfox.util.FTPUtil;
 
 import static com.myfox.nio.NIOEventHandler.CRLF;
 
+/**
+ * @author yanglinlin
+ */
 public class FTPCMD_PORT extends FTPCMDLoggedPorxyHandler {
 
 	@Override
